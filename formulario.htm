@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html" />
+	<meta name="author" content="www.intercambiosvirtuales.org" />
+
+	<title>Sin título 1</title>
+</head>
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+
+<body>
+<script >
+   $(document).ready(function(){
+     $("#btnGrabar").click(function(event){
+        $.post("grabar.php",{
+            id: document.getElementById("txtId").value,
+            nombre: document.getElementById("txtNombre").value,
+            edad: document.getElementById("txtEdad").value
+            },function(data,status){
+               document.getElementById("respuesta").innerHTML=data;
+            }
+        );
+     });
+     $("#btnListar").click(function(event){
+        $.post("listar.php",
+        {},function(data,status){
+           document.getElementById("respuesta").innerHTML=data;   
+        });
+     });
+     
+     $("#btn_buscar").click(function(event){
+        $.post("buscar.php",{
+         id: document.getElementById("txtId").value   
+        },function(data,status){
+           document.getElementById("respuesta").innerHTML=data; 
+        });
+     });
+     $("#btnBuscar").click(function(event){
+        $("#formulario").slideToggle();
+     });
+     
+   });
+</script>
+<form>
+    <table>
+        <tr>
+            <td>ID:</td> <td><input type="text" name="txtId" id="txtId" /></td>
+        </tr>
+        <tr>
+            <td>Nombre:</td> <td><input type="text" name="txtNombre" id="txtNombre" /></td>
+        </tr>
+        <tr>
+            <td>Edad:</td> <td><input type="text" name="txtEdad" id="txtEdad" /></td>
+        
+        </tr>
+        <tr>  
+            <td><input type="reset" value="Limpiar" /></td>
+            <td><input type="button" value="Enviar"  id="btnGrabar"/></td>
+            <td><input type="button" value="Listar" id="btnListar"/></td>
+            <td><input type="button" value="Buscar" id="btnBuscar"/></td>
+        </tr>
+    
+    </table>
+
+</form>
+<div id="respuesta"></div>
+<div id="formulario" style="background-color: aquamarine;width: 450px;display: none;" >
+    Ingrese Id:<input type="text" name="txtId" id="txtId" />
+    <input type="button" value="Buscar" id="btn_buscar" />
+</div>
+
+</body>
+</html>
